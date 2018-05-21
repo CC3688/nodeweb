@@ -1,2 +1,3 @@
 # nodeweb
-learn use node tu build web app
+node express mysql ejs 
+学习代码,非完整项目!

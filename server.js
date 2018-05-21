@@ -37,8 +37,8 @@ server.set('views','template');
 server.set('view engine','html');
 
 //route
-server.use('/',require('./route/web.js')());
-server.use('/admin/',require('./route/admin.js')());
+server.use('/',require('./route/web/index.js')());
+server.use('/admin/',require('./route/admin/index.js')());
 
 
 //default :static

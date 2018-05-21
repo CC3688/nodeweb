@@ -1,23 +1,16 @@
 const express = require('express');
-const common =  require('../libs/common');
+const common =  require('../../libs/common');
 const mysql = require('mysql');
 
-var db = mysql.createPool({host:'localhost',user:'root',password:'root',database:'learn'});
+//台式机 var db = mysql.createPool({host:'localhost',user:'root',password:'root',database:'learn'});
+var db = mysql.createPool({host:'localhost',port:8889, user:'root',password:'root',database:'learn'}); //mac
 
 module.exports = function (){
-    var router = express.Router();
-    //检查登录状态
-    router.use((req,res,next)=>{
-        if(!req.session['admin_id'] && req.url !='/login'){ //没登录只能访问登录页面
-            res.redirect('/admin/login');
-        }else{
-            next();
-        }
-    });
-    router.get('/login',(req,res)=>{
+    var router=express.Router();
+    router.get('/',(req,res)=>{
         res.render('admin/login.ejs',{});
     });
-    router.post('/login',(req,res)=>{
+    router.post('/',(req,res)=>{
         var username = req.body.username;
        
         var password = common.md5(req.body.password);
@@ -40,10 +33,6 @@ module.exports = function (){
                 }
             }
         });      
-    });
-
-    router.get('/',(req,res)=>{
-        res.send('恭喜你成功的登录了').end();
     });
 
     return router;
